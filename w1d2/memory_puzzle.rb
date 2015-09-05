@@ -85,7 +85,8 @@ class Board
 end
 
 class Game
-  attr_reader :game_board, :prev_guess, :player
+  attr_reader :game_board, :player
+  attr_accessor :prev_guess
   def initialize(player)
     @game_board = Board.new
     @prev_guess = []
@@ -122,7 +123,6 @@ class Game
         p "Incorrect Match"
         sleep(2)
       elsif prev_guess_value == input_guess_value
-        debugger
         player.receive_revealed_card(prev_guess, prev_guess_value)
         player.receive_revealed_card(input_array, input_guess_value)
         player.receive_match(prev_guess, input_array)
@@ -130,6 +130,7 @@ class Game
         p "Correct Match"
       end
        @prev_guess = []
+       player.previous_guess = nil
     end
 
   end
@@ -184,34 +185,29 @@ class ComputerPlayer
         pos = []
         @known_cards.each do |pos1,val|
           if pos1 != previous_guess && val == @known_cards[previous_guess] && !@matched_cards.include?(pos1)
-            debugger
-            pos = pos1
+            pos << pos1
           end
         end
 
         if pos.empty?
-          @previous_guess = nil
-          rand_guess
+           rand_guess
         else
-          @previous_guess = nil
-          pos
+          pos.first
         end
       elsif previous_guess.nil?
         pos = []
         @known_cards.each do |pos1, val1|
           @known_cards.each do |pos2, val2|
-            if val1 == val2
-              pos = pos1
+            if val1 == val2 && pos1 != pos2 && !@matched_cards.include?(pos1)
+              pos << pos1
             end
           end
         end
 
         if pos.empty?
-          @previous_guess = pos
           rand_guess
         else
-          @previous_guess = pos
-          pos
+          pos.first
         end
       end
 
@@ -222,7 +218,7 @@ class ComputerPlayer
     def rand_guess
       input_row = rand(1..4)
       input_col = rand(1..5)
-      while @known_cards.keys.include?([input_row-1, input_col-1]) && @matched_cards.include?([input_row-1, input_col-1])
+      while @known_cards.keys.include?([input_row-1, input_col-1])
         input_row = rand(1..4)
         input_col = rand(1..5)
       end
