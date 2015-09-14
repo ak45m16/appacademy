@@ -11,6 +11,7 @@ class Link
 end
 
 class LinkedList
+  include Enumerable
   attr_reader :head
 
   def initialize
@@ -83,16 +84,16 @@ class LinkedList
   end
 
   def each(&prc)
-    current = @head
+    current = @head.next
     until current.next == nil
-      prc.call unless current.val == nil
+      prc.call(current)
       current = current.next
     end
 
   end
 
   # uncomment when you have `each` working and `Enumerable` included
-  # def to_s
-  #   inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
-  # end
+  def to_s
+    inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
+  end
 end

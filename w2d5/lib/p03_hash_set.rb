@@ -22,7 +22,7 @@ class HashSet
   def include?(key)
     num = key.hash
     @store[num % num_buckets].each do |el|
-      if el == key
+      if el.key == key
         return true
       end
     end
