@@ -1,5 +1,15 @@
 class CatRentalRequestsController < ApplicationController
 
+  def approve
+    current_cat_rental_request.approve!
+    redirect_to cat_url(current_cat)
+  end
+
+  def deny
+    current_cat_rental_request.deny!
+    redirect_to cat_url(current_cat)
+  end
+
   def index
     render text: "INDEX"
   end
@@ -26,6 +36,15 @@ class CatRentalRequestsController < ApplicationController
   end
 
   private
+
+  def current_cat_rental_request
+    @cat_rental_request ||=
+      CatRentalRequest.includes(:cat).find(params[:id])
+  end
+
+  def current_cat
+    current_cat_rental_request.cat
+  end
 
   def cat_rental_request_params
     params.require(:cat_rental_request).permit(:cat_id, :start_date,
