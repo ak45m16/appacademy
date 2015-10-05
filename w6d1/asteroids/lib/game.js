@@ -9,6 +9,8 @@
     this.numAsteroids = numAsteroids;
     this.asteroids = [];
     this.addAsteroids(numAsteroids);
+    this.ship = new window.Asteroids.Ship(this);
+    this.asteroids.push(this.ship);
   };
 
   Game.WIDTH = 500;
@@ -49,7 +51,7 @@
     for (var i = 0; i < this.asteroids.length; i++) {
       for (var j = i + 1; j < this.asteroids.length; j++) {
         if (this.asteroids[i].isCollidedWith(this.asteroids[j])) {
-          alert("COLLISION");
+          this.asteroids[i].collideWith(this.asteroids[j]);
         }
       }
     }
@@ -59,4 +61,16 @@
     this.moveObjects();
     this.checkCollisions();
   };
+
+  Game.prototype.remove = function (asteroid) {
+    var indexAst = this.asteroids.indexOf(asteroid);
+    this.asteroids.splice(indexAst, indexAst + 1);
+  };
+
+  Game.prototype.allObjects = function() {
+    var everyThing = [];
+    everyThing.concat(this.asteroids);
+    everyThing.push(this.ship);
+    return everyThing;
+  }
  })();
