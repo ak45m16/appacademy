@@ -10,13 +10,20 @@
     this.color = Ship.COLOR;
     this.game = game;
     this.pos = [Math.floor(Math.random()*500), Math.floor(Math.random()*500)];
-    window.Asteroids.MovingObject.call(this, this.pos, this.vel, 25, "green", this.game);
+    window.Asteroids.MovingObject.call(this, this.pos, this.vel, 15, "green", this.game);
   };
 
   Ship.COLOR = "green"
-  Ship.RADIUS = 25;
+  Ship.RADIUS = 15;
 
   window.Asteroids.Util.inherits(Ship, window.Asteroids.MovingObject);
+
+  // Ship.IMG = new Image();
+  // Ship.IMG.src = "lib/ship.jpg";
+
+  // Ship.prototype.draw = function(ctx) {
+  //   ctx.drawImage(Ship.IMG, this.pos[0], this.pos[1]);
+  // };
 
   Ship.prototype.relocate = function () {
     this.pos = [Math.floor(Math.random()*500), Math.floor(Math.random()*500)];
@@ -26,6 +33,10 @@
   Ship.prototype.power = function(impulse) {
     this.vel[0] += impulse[0];
     this.vel[1] += impulse[1];
+  };
+
+  Ship.prototype.fireBullet = function() {
+    new Bullet();
   };
 
 })();

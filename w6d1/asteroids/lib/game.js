@@ -11,6 +11,7 @@
     this.addAsteroids(numAsteroids);
     this.ship = new window.Asteroids.Ship(this);
     this.asteroids.push(this.ship);
+    this.bullets = [];
   };
 
   Game.WIDTH = 500;
@@ -29,6 +30,8 @@
     this.asteroids.forEach(function(asteroid) {
        asteroid.draw(ctx);
     });
+    // this.ship.draw(ctx);
+
   };
 
   Game.prototype.moveObjects = function () {
