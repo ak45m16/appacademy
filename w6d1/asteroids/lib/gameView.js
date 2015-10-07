@@ -22,6 +22,7 @@
     window.key('down', function() { that.game.ship.power([0,1]); });
     window.key('left', function() { that.game.ship.power([-1,0]); });
     window.key('right', function() { that.game.ship.power([1,0]); });
+    window.key('space', function() { that.game.ship.fireBullet(); });
   };
 
 })();

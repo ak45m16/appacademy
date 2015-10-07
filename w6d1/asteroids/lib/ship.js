@@ -36,7 +36,9 @@
   };
 
   Ship.prototype.fireBullet = function() {
-    new Bullet();
+    console.log("bullet is firing!")
+    var bullet = new window.Asteroids.Bullet(this.pos, [1,1], 5, "black", this.game);
+    this.game.addBullet(bullet);
   };
 
 })();

@@ -44,5 +44,9 @@
 
   };
 
+  MovingObject.prototype.remove = function() {
+    this.game.remove(this);
+  };
+
 
  })();
