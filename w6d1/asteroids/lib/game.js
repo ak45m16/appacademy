@@ -11,8 +11,8 @@
     this.addAsteroids(numAsteroids);
     this.ship = new window.Asteroids.Ship(this);
     this.asteroids.push(this.ship);
-    this.bullets = [];
-    this.asteroids.concat(this.bullets);
+    // this.bullets = [];
+    // this.asteroids.concat(this.bullets);
   };
 
   Game.WIDTH = 500;
@@ -79,6 +79,6 @@
   };
 
   Game.prototype.addBullet = function(bullet) {
-    this.asteroids.push(bullet);
+    this.asteroids.unshift(bullet);
   }
  })();

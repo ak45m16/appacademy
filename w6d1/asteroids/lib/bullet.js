@@ -10,9 +10,9 @@
   window.Asteroids.Util.inherits(Bullet, window.Asteroids.MovingObject);
 
   Bullet.prototype.collideWith = function (asteroid) {
-    if (otherObject instanceof Asteroids.Asteroid) {
+    if (asteroid instanceof Asteroids.Asteroid) {
       this.remove();
-      otherObject.remove();
+      asteroid.remove();
     }
   };
 
