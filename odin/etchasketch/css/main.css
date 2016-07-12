@@ -1,0 +1,9 @@
+.container{
+  width:500px;
+  height:500px;
+  font-size: 0;
+}
+.grid{
+  background-color: red;
+  display: inline-block;
+}

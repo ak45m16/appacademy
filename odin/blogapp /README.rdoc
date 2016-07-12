@@ -1,0 +1,4 @@
+== README
+
+This blog application is the culmination of the Coursera Web Development Architectures course. The bare-bones blog has posts and comments (with CRUD operations and associations on those models such that the posts and comments are relational), along with authentication required to post and AJAX on new comments. It utilizes Ruby on Rails as the web framework, SQLite as the database with server-side data validation, and WEBRICK as the development web server. 
+

@@ -1,0 +1,6 @@
+---
+- !ruby/object:Player
+  name: John
+- 7
+- predeterminate
+- ______________
