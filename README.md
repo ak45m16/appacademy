@@ -1,3 +1,3 @@
-# App Academy
+# Code learnings
 
-A lot of the daily work from the App Academy course.
+A menagerie of code from various learning experiences.
