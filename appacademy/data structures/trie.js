@@ -8,7 +8,7 @@ function Node(value) {
 function Trie() {
   this.root = new Node();
   
-  this.add = function (value) { // O()
+  this.add = function (value) { // O(m)
     var node = this.root;
     for (var i in value) {
       if (!value[i] in node.children) {
@@ -19,7 +19,7 @@ function Trie() {
     node.value = value;
   }
   
-  this.find = function(value) {
+  this.find = function(value) { // O(m)
     var node = this.root;
     
     for (var i in value) {
