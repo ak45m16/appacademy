@@ -17,7 +17,6 @@ class BinarySearchTree
   def insert(value)
     if @root.nil?
       @root = BSTNode.new(value)
-      return
     else
       BinarySearchTree.insert!(@root, value)
     end
@@ -43,12 +42,12 @@ class BinarySearchTree
     BinarySearchTree.height!(@root)
   end
 
-  def min(node)
-    BinarySearchTree.min(node)
+  def min
+    BinarySearchTree.min(@root)
   end
 
-  def max(node)
-    BinarySearchTree.max(node)
+  def max
+    BinarySearchTree.max(@root)
   end
 
   def delete(value)
@@ -56,17 +55,17 @@ class BinarySearchTree
   end
 
   def self.insert!(node, value)
-    # if !node
-    #   return BSTNode.new(value)
-    # end
-    # 
-    # if value < node.value 
-    #   node.left = BinarySearchTree.insert!(node.left, value)
-    # elsif value > node.value 
-    #   node.right = BinarySearchTree.insert!(node.right, value)
-    # end
-    # 
-    # node
+    if !node
+      return BSTNode.new(value)
+    end
+    
+    if value < node.value 
+      node.left = BinarySearchTree.insert!(node.left, value)
+    elsif value > node.value 
+      node.right = BinarySearchTree.insert!(node.right, value)
+    end
+    
+    node
   end
 
   def self.find!(node, value)
@@ -87,7 +86,7 @@ class BinarySearchTree
   def self.preorder!(node)
     return [] if !node
     order = []
-    order << node
+    order << node.value
     order += BinarySearchTree.inorder!(node.left) if node.left
     order += BinarySearchTree.inorder!(node.right) if node.right
     order
@@ -97,7 +96,7 @@ class BinarySearchTree
     return [] if !node
     order = []
     order += BinarySearchTree.inorder!(node.left) if node.left
-    order << node
+    order << node.value
     order += BinarySearchTree.inorder!(node.right) if node.right
     order
   end
@@ -107,7 +106,7 @@ class BinarySearchTree
     order = []
     order += BinarySearchTree.inorder!(node.left) if node.left
     order += BinarySearchTree.inorder!(node.right) if node.right
-    order << node
+    order << node.value
     order
   end
 
@@ -153,7 +152,7 @@ class BinarySearchTree
       return node.right
     end
     
-    BinarySearchTree.delete_min!(node.left)
+    node.left = BinarySearchTree.delete_min!(node.left)
   end
 
   def self.delete!(node, value)
@@ -166,7 +165,16 @@ class BinarySearchTree
     elsif value > node.value
       BinarySearchTree.delete!(node.right, value)
     elsif value == node.value 
-      BinarySearchTree.delete_min!(node)
+      if !node.right
+        return node.left
+      end
+      if !node.left
+        return node.right
+      end
+      temp_store = node
+      node = BinarySearchTree.min(temp_store.right)
+      node.right = BinarySearchTree.delete_min(temp_store.right)
+      node.left = temp_store.left
     end
   end
 end
