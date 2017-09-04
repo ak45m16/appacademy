@@ -18,7 +18,7 @@ class QuickSort
       end
     end
     
-    sort1(left_arr) + pivot + sort1(right_arr)
+    sort1(left_arr) + [pivot] + sort1(right_arr)
     
   end
 
@@ -29,9 +29,9 @@ class QuickSort
     prc ||= Proc.new { |el1, el2| el1 <=> el2 }
     
     partition_index = partition(array, start, length, &prc)
-    
-    sort2!(array, start, partition_index - start, &prc)
-    sort2!(array, partition_index + 1, array.length - (partition_index - start + 1), &prc)
+
+    sort2!(array, start, partition_index - 1, &prc)
+    sort2!(array, partition_index + 1, array.length, &prc)
     
     array
   end
@@ -42,14 +42,17 @@ class QuickSort
     pivot = array[start]
     ((start)..(length)).each do |idx|
       current_el = array[idx]
-      if prc.call(partition_index, current_el) > 0
+      if (idx != start && prc.call(pivot, current_el) != -1 )
         array[idx] = array[partition_index + 1]
         array[partition_index + 1] = current_el
         partition_index += 1
       end
     end
-    array[start], array[partition_index] = array[partition_index], array[start]
+    pivot, array[partition_index] = array[partition_index], pivot
     partition_index
   end
 end
 
+# array = [4, 3, 10, 7, 2, 8, 1]
+# puts QuickSort.partition(array, 0, array.length)
+# puts QuickSort.sort2!(array, 0, array.length)
