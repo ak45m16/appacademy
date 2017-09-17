@@ -1,3 +1,5 @@
+require 'byebug'
+
 class QuickSort
   # Quick sort has average case time complexity O(nlogn), but worst
   # case O(n**2).
@@ -23,26 +25,23 @@ class QuickSort
   end
 
   # In-place.
-  def self.sort2!(array, start = 0, length = array.length, &prc)
-    return array if array.length < 2
+  def self.sort2!(array, start = 0, length = array.length)
+    return array if length < 2
     
-    prc ||= Proc.new { |el1, el2| el1 <=> el2 }
-    
-    partition_index = partition(array, start, length, &prc)
+    partition_index = partition(array, start, length)
 
-    sort2!(array, start, partition_index - 1, &prc)
-    sort2!(array, partition_index + 1, array.length, &prc)
+    sort2!(array, start, partition_index - 1)
+    sort2!(array, partition_index + 1, length)
     
     array
   end
 
-  def self.partition(array, start, length, &prc)
-    prc ||= Proc.new { |el1, el2| el1 <=> el2 }
+  def self.partition(array, start, length)
     partition_index = start
     pivot = array[start]
-    ((start)..(length)).each do |idx|
+    ((start)..(start + length)).each do |idx|
       current_el = array[idx]
-      if (idx != start && prc.call(pivot, current_el) != -1 )
+      if (!current_el.nil? && (current_el < pivot))
         array[idx] = array[partition_index + 1]
         array[partition_index + 1] = current_el
         partition_index += 1
